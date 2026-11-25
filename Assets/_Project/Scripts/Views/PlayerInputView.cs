@@ -1,12 +1,19 @@
+using R3;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInputView : MonoBehaviour
 {
    private GameInput _gameInput;
+   
+   public Observable<Unit> FirePressed {get; private set;}
 
    private void Awake()
    {
       _gameInput = new GameInput();
+      
+      FirePressed = Observable.FromEvent<InputAction.CallbackContext>(handler => _gameInput.Player.Fire.performed += handler
+      ,handler => _gameInput.Player.Fire.performed -= handler).Select(_ => Unit.Default);
    }
 
    private void OnEnable()

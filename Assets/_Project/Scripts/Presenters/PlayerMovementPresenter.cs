@@ -34,7 +34,7 @@ public class PlayerMovementPresenter : IInitializable, IDisposable
    {
       Vector2 moveInput = _inputView.ReadMoveInput();
       Vector3 cameraForward = _cameraView.PlanarForward;
-      Vector3 moveDirection = cameraForward * moveInput.y + _cameraView.PlanarRight * moveInput.x;
+      Vector3 moveDirection = _cameraView.PlanarForward * moveInput.y + _cameraView.PlanarRight * moveInput.x;
       
       _playerView.Move(moveDirection * _config.PlayerMoveSpeed);
       _playerView.RotateTowards(cameraForward);
